@@ -1,0 +1,98 @@
+{% sw_extends '@parent/storefront/page/product-detail/tabs.html.twig' %}
+
+{% block page_product_detail_tabs_navigation_description %}
+    {{ parent() }}
+    <li class="nav-item">
+        <a class="nav-link product-detail-tab-navigation-link"
+           id="moteq-product-inquiry-tab"
+           data-toggle="tab"
+           data-offcanvas-tabs="true"
+           href="#moteq-product-inquiry-tab-pane"
+           role="tab"
+           aria-controls="moteq-product-inquiry-tab-pane"
+           aria-selected="true">
+            Product Inquiry
+        </a>
+    </li>
+{% endblock %}
+
+{% block page_product_detail_tabs_content_description %}
+    {{ parent() }}
+
+    <div class="tab-pane fade show "
+         id="moteq-product-inquiry-tab-pane"
+         role="tabpanel"
+         aria-labelledby="quickstart-tab">
+
+
+
+        <form action="{{ path('frontend.moteq.inquiry.create') }}" method="post" :ref="'form-action-moteq-inquiry'" id="product_inquiry_form">
+            <p>Make an inquiry about this product</p>
+            <div class="form-row buy-widget-container">
+                <input type="hidden" name="product_id" value="{{ page.product.id }}">
+
+                <div class="form-group col-12">
+                    <label for="email">Email address</label>
+                    <input type="email" class="form-control" id="email" name="email" aria-describedby="emailHelp" placeholder="Enter email">
+                </div>
+
+                <div class="form-group col-12">
+                    <label for="inquiry">Your Inquiry</label>
+                    <textarea class="form-control" name="inquiry" id="inquiry" rows="3"></textarea>
+                </div>
+
+                <button class="btn btn-primary col-12" onclick="sendProductInquiry()"  style="margin-top: 10px;" type="button">
+                    Inquire
+                </button>
+
+                {{ sw_csrf('frontend.moteq.inquiry.create') }}
+
+            </div>
+        </form>
+        <div class="col-12 successful_inquiry" style="display: none">
+            <h4>Your inquiry has been sent successfully. Wait for our reply via email.</h4>
+        </div>
+
+    </div>
+    <script type="text/javascript">
+
+        //TODO: handle this properly
+        function sendProductInquiry() {
+            var data = new FormData();
+
+            let email = document.querySelector("#email").value;
+            let inquiry = document.querySelector("#inquiry").value;
+            let product_id = "{{ page.product.id }}";
+
+            let form = document.getElementById("product_inquiry_form");
+            let token = form._csrf_token.value;
+
+           if (email.length > 0 && inquiry.length > 0){
+               data.append('email', email);
+               data.append('inquiry', inquiry);
+               data.append('product_id', product_id);
+               data.append('_csrf_token', token);
+
+               var xhr = new XMLHttpRequest();
+               xhr.open("POST", "{{ path('frontend.moteq.inquiry.create') }}");
+
+               xhr.onload = function(evt){
+                   if (this.status===200) {
+                       if (this.response == '1'){
+                           form.style.display = "none";
+                           document.querySelector(".successful_inquiry").style.display = "block";
+                       }
+                   } else {
+                       console.log("SERVER ERROR");
+                       console.log(this.status);
+                       console.log(this.response);
+                   }
+               };
+
+               xhr.send(data);
+
+           }
+        }
+    </script>
+{% endblock %}
+

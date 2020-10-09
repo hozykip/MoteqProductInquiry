@@ -1,0 +1,38 @@
+{% block moteq_product_inquiry_detail %}
+    <sw-page class="moteq-product-inquiry-detail">
+        <template slot="smart-bar-actions">
+            <sw-button :routerLink="{ name: 'moteq.product_inquiry.list' }">
+                {{ $t('moteq-product_inquiry.detail.cancelButtonText') }}
+            </sw-button>
+            <sw-button-process variant="primary"
+                               @click="onClickSave"
+                               :isLoading="isLoading"
+                               :processSuccess="processSuccess"
+                               @process-finish="saveFinish">
+                {{ $t('moteq-product_inquiry.detail.saveButtonText') }}
+            </sw-button-process>
+        </template>
+        <template slot="content">
+            <sw-card-view>
+                <sw-card v-if="product_inquiry">
+
+                    <sw-description-list>
+                        <dt>{{ $t('moteq-product_inquiry.detail.emailLabel') }}</dt>
+                        <dd>{{ product_inquiry.email }}</dd>
+                        <dt>{{ $t('moteq-product_inquiry.detail.productLabel') }}</dt>
+                        <dd>{{ product.name }}</dd>
+                        <dt>{{ $t('moteq-product_inquiry.detail.inquiryLabel') }}</dt>
+                        <dd>{{ product_inquiry.inquiry }}</dd>
+
+                        <dt>{{ $t('moteq-product_inquiry.detail.responseLabel') }}</dt>
+                        <dd>
+                            <sw-field v-model="product_inquiry.response" validation="required" type="textarea"></sw-field>
+                        </dd>
+                    </sw-description-list>
+
+
+                </sw-card>
+            </sw-card-view>
+        </template>
+    </sw-page>
+{% endblock %}

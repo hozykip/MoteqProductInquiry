@@ -1,0 +1,33 @@
+{% block moteq_product_inquiry_detail %}
+    <sw-page class="moteq-product-inquiry-detail">
+        <template slot="smart-bar-actions">
+            <sw-button :routerLink="{ name: 'moteq.product_inquiry.list' }">
+                {{ $t('moteq-product_inquiry.detail.cancelButtonText') }}
+            </sw-button>
+            <sw-button-process variant="primary"
+                               @click="onClickSave"
+                               :isLoading="isLoading"
+                               :processSuccess="processSuccess"
+                               @process-finish="saveFinish">
+                {{ $t('moteq-product_inquiry.detail.saveButtonText') }}
+            </sw-button-process>
+        </template>
+        <template slot="content">
+            <sw-card-view>
+                <sw-card v-if="product_inquiry">
+                    <sw-field :label="$t('moteq-product_inquiry.detail.emailLabel')" v-model="product_inquiry.email" validation="required" type="email" readonly></sw-field>
+
+                    {#                    <sw-field :label="$t('moteq-product_inquiry.detail.productLabel')" v-model="product_inquiry.product" validation="required" readonly></sw-field>#}
+                    <sw-entity-single-select :label="$t('moteq-product_inquiry.detail.productLabel')"
+                                             :entity="product_inquiry"
+                                             v-model="product_inquiry.product"
+                                             validation="required"></sw-entity-single-select>
+
+                    <sw-field :label="$t('moteq-product_inquiry.detail.inquiryLabel')" v-model="product_inquiry.inquiry" validation="required" type="textarea" readonly></sw-field>
+
+                    <sw-field :label="$t('moteq-product_inquiry.detail.responseLabel')" v-model="product_inquiry.response" validation="required" type="textarea"></sw-field>
+                </sw-card>
+            </sw-card-view>
+        </template>
+    </sw-page>
+{% endblock %}

@@ -1,0 +1,16 @@
+{% block moteq_product_inquiry_list %}
+    <sw-page class="moteq-product-inquiry-list">
+        <template slot="content">
+            {% block swag_bundle_list_content %}
+                <sw-entity-listing
+                    v-if="product_inquiries"
+                    :items="product_inquiries"
+                    :repository="repository"
+                    :showSelection="false"
+                    :columns="columns"
+                    detailRoute="moteq.product_inquiry.detail">
+                </sw-entity-listing>
+            {% endblock %}
+        </template>
+    </sw-page>
+{% endblock %}

@@ -1,0 +1,24 @@
+{
+  "name": "moteq/product-inquiry",
+  "description": "Skeleton plugin",
+  "type": "shopware-platform-plugin",
+  "license": "MIT",
+    "authors": [
+        {
+            "name": "Hozy",
+            "role": "Developer"
+        }
+    ],
+  "autoload": {
+    "psr-4": {
+      "MoteqProductInquiry\\": "src/"
+    }
+  },
+  "extra": {
+    "shopware-plugin-class": "MoteqProductInquiry\\MoteqProductInquiry",
+    "label": {
+      "de-DE": "Product Inquiry",
+      "en-GB": "Product Inquiry"
+    }
+  }
+}

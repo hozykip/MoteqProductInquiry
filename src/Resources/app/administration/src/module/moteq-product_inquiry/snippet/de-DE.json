@@ -1,0 +1,22 @@
+{
+    "moteq-product_inquiry": {
+        "general": {
+            "mainMenuItemGeneral": "Product Inquiry",
+            "descriptionTextModule": "Manage product inquiries here."
+        },
+        "list": {
+            "columnEmail": "Email",
+            "columnInquiry": "Inquiry",
+            "columnResponse": "Response"
+        },
+        "detail": {
+            "emailLabel": "Email",
+            "inquiryLabel": "Inquiry",
+            "responseLabel": "Response",
+            "productLabel": "Product Title",
+            "saveButtonText": "Save",
+            "cancelButtonText": "Cancel",
+            "errorTitle": "Error"
+        }
+    }
+}
